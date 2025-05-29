@@ -69,7 +69,7 @@ class random extends page
             $query .= 'AND LENGTH(phrase) <= ' . $this->max_length . ' ';
         $query .= 'ORDER BY RAND() LIMIT ' . $this->limit. ';';
         $result = $this->db->get_rows($query);
-        foreach ($result as $key => $val)
+        foreach ($result as $val)
         {
             $entry = $val['phrase'];
             $random_entries .= $random_entries ? ', ' : '';
@@ -80,7 +80,7 @@ class random extends page
             WHERE phrase IN (' . $random_entries . ')
             ORDER BY phrase, def_num;';
         $result = $this->db->get_rows($query);
-        foreach ($result as $key => $val)
+        foreach ($result as $val)
         {
             $entry = $val['phrase'];
             $random[$entry]['definition'][] = $val['def_text'];

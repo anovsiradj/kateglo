@@ -34,9 +34,9 @@ require_once 'HTML/QuickForm/Renderer/Object.php';
  *
  * Usage:
  * <code>
- * $form =& new HTML_QuickForm('form', 'POST');
- * $template =& new HTML_Template_Flexy();
- * $renderer =& new HTML_QuickForm_Renderer_ObjectFlexy(&$template);
+ * $form = new HTML_QuickForm('form', 'POST');
+ * $template = new HTML_Template_Flexy();
+ * $renderer = new HTML_QuickForm_Renderer_ObjectFlexy(&$template);
  * $renderer->setHtmlTemplate("html.html");
  * $renderer->setLabelTemplate("label.html");
  * $form->accept($renderer);
@@ -108,7 +108,7 @@ class HTML_QuickForm_Renderer_ObjectFlexy extends HTML_QuickForm_Renderer_Object
     {
         $this->HTML_QuickForm_Renderer_Object(true);
         $this->_obj = new QuickformFlexyForm();
-        $this->_flexy =& $flexy;
+        $this->_flexy = $flexy;
     } // end constructor
 
     function renderHeader(&$header)

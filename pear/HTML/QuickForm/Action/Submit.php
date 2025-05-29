@@ -41,7 +41,7 @@ class HTML_QuickForm_Action_Submit extends HTML_QuickForm_Action
         // save the form values and validation status to the session
         $page->isFormBuilt() or $page->buildForm();
         $pageName =  $page->getAttribute('id');
-        $data     =& $page->controller->container();
+        $data     = $page->controller->container();
         $data['values'][$pageName] = $page->exportValues();
         if (PEAR::isError($valid = $page->validate())) {
             return $valid;
@@ -58,7 +58,7 @@ class HTML_QuickForm_Action_Submit extends HTML_QuickForm_Action
 
         // Some other page is invalid, redirect to it
         } else {
-            $target =& $page->controller->getPage($page->controller->findInvalid());
+            $target = $page->controller->getPage($page->controller->findInvalid());
             return $target->handle('jump');
         }
     }

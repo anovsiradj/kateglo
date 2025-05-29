@@ -114,7 +114,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
     function setSelected($values)
     {
         if (is_string($values) && $this->getMultiple()) {
-            $values = split("[ ]?,[ ]?", $values);
+            $values = explode("[ ]?,[ ]?", $values);
         }
         if (is_array($values)) {
             $this->_values = array_values($values);
@@ -529,7 +529,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
                 }
             }
         }
-        $html = empty($value)? '&nbsp;': join('<br />', $value);
+        $html = empty($value)? '&nbsp;': implode('<br />', $value);
         if ($this->_persistantFreeze) {
             $name = $this->getPrivateName();
             // Only use id attribute if doing single hidden input

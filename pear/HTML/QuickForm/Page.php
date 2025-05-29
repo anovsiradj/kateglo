@@ -81,7 +81,7 @@ class HTML_QuickForm_Page extends HTML_QuickForm
     */
     function addAction($actionName, &$action)
     {
-        $this->_actions[$actionName] =& $action;
+        $this->_actions[$actionName] = $action;
     }
 
 
@@ -179,7 +179,7 @@ class HTML_QuickForm_Page extends HTML_QuickForm
     function setDefaultAction($actionName)
     {
         if ($this->elementExists('_qf_default')) {
-            $element =& $this->getElement('_qf_default');
+            $element = $this->getElement('_qf_default');
             $element->setValue($this->getAttribute('id') . ':' . $actionName);
         } else {
             $this->addElement('hidden', '_qf_default', $this->getAttribute('id') . ':' . $actionName);

@@ -87,7 +87,7 @@ class HTML_QuickForm_hiddenselect extends HTML_QuickForm_select
         $name    = $this->getPrivateName();
         $strHtml = '';
 
-        foreach ($this->_values as $key => $val) {
+        foreach ($this->_values as $val) {
             for ($i = 0, $optCount = count($this->_options); $i < $optCount; $i++) {
                 if ($val == $this->_options[$i]['attr']['value']) {
                     $strHtml .= $tabs . '<input' . $this->_getAttrString(array(

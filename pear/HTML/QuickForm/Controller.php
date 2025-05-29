@@ -151,7 +151,7 @@ class HTML_QuickForm_Controller
     */
     function addAction($actionName, &$action)
     {
-        $this->_actions[$actionName] =& $action;
+        $this->_actions[$actionName] = $action;
     }
 
 
@@ -163,8 +163,8 @@ class HTML_QuickForm_Controller
     */
     function addPage(&$page)
     {
-        $page->controller =& $this;
-        $this->_pages[$page->getAttribute('id')] =& $page;
+        $page->controller = $this;
+        $this->_pages[$page->getAttribute('id')] = $page;
     }
 
 
@@ -210,7 +210,7 @@ class HTML_QuickForm_Controller
             case 'jump':
                 include_once 'HTML/QuickForm/Action/' . ucfirst($actionName) . '.php';
                 $className = 'HTML_QuickForm_Action_' . $actionName;
-                $this->_actions[$actionName] =& new $className();
+                $this->_actions[$actionName] = new $className();
                 return $this->_actions[$actionName]->perform($page, $actionName);
                 break;
             default:
@@ -241,7 +241,7 @@ class HTML_QuickForm_Controller
     */
     function isValid($pageName = null)
     {
-        $data =& $this->container();
+        $data = $this->container();
         foreach (array_keys($this->_pages) as $key) {
             if (isset($pageName) && $pageName == $key) {
                 return true;
@@ -249,7 +249,7 @@ class HTML_QuickForm_Controller
                 // We should handle the possible situation when the user has never
                 // seen a page of a non-modal multipage form
                 if (!$this->isModal() && null === $data['valid'][$key]) {
-                    $page =& $this->_pages[$key];
+                    $page = $this->_pages[$key];
                     // Fix for bug #8687: the unseen page was considered
                     // submitted, so defaults for checkboxes and multiselects
                     // were not used. Shouldn't break anything since this flag
@@ -324,7 +324,7 @@ class HTML_QuickForm_Controller
     */
     function findInvalid()
     {
-        $data =& $this->container();
+        $data = $this->container();
         foreach (array_keys($this->_pages) as $key) {
             if (!$data['valid'][$key]) {
                 return $key;
@@ -375,7 +375,7 @@ class HTML_QuickForm_Controller
     function setDefaults($defaultValues = null, $filter = null)
     {
         if (is_array($defaultValues)) {
-            $data =& $this->container();
+            $data = $this->container();
             return $this->_setDefaultsOrConstants($data['defaults'], $defaultValues, $filter);
         }
     }
@@ -393,7 +393,7 @@ class HTML_QuickForm_Controller
     function setConstants($constantValues = null, $filter = null)
     {
         if (is_array($constantValues)) {
-            $data =& $this->container();
+            $data = $this->container();
             return $this->_setDefaultsOrConstants($data['constants'], $constantValues, $filter);
         }
     }
@@ -459,7 +459,7 @@ class HTML_QuickForm_Controller
     */
     function applyDefaults($pageName)
     {
-        $data =& $this->container();
+        $data = $this->container();
         if (!empty($data['defaults'])) {
             $this->_pages[$pageName]->setDefaults($data['defaults']);
         }
@@ -478,7 +478,7 @@ class HTML_QuickForm_Controller
     */
     function exportValues($pageName = null)
     {
-        $data   =& $this->container();
+        $data   = $this->container();
         $values =  array();
         if (isset($pageName)) {
             $pages = array($pageName);
@@ -511,7 +511,7 @@ class HTML_QuickForm_Controller
     */
     function exportValue($pageName, $elementName)
     {
-        $data =& $this->container();
+        $data = $this->container();
         return isset($data['values'][$pageName][$elementName])? $data['values'][$pageName][$elementName]: null;
     }
 }

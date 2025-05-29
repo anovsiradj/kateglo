@@ -280,8 +280,7 @@ create table relation
    rel_type             varchar(16) not null,
    updated              datetime,
    updater              varchar(32),
-   primary key (rel_uid),
-   key AK_relation_unique ()
+   primary key (rel_uid)
 );
 
 /*==============================================================*/

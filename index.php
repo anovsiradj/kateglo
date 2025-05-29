@@ -89,8 +89,8 @@ if ($cached = $cache->get()) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="zmQCyhcE8Z9CoamZld4k96jVIhDONOmLkiQeFJWjK-w" />
-<?php if ($keywords) { ?><meta name="keywords" content="<?php echo($keywords); ?>" /><? } ?>
-<?php if ($description) { ?><meta name="description" content="<?php echo($description); ?>" /><? } ?>
+<?php if ($keywords) { ?><meta name="keywords" content="<?php echo($keywords); ?>" /><?php } ?>
+<?php if ($description) { ?><meta name="description" content="<?php echo($description); ?>" /><?php } ?>
 <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />

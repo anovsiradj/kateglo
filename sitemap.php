@@ -10,7 +10,7 @@ $maps = array(
     'comment' => '/?mod=comment',
 );
 $url = 'http://%1$s/kateglo%2$s';
-foreach ($maps as $key => $page)
+foreach ($maps as $page)
 {
     $ret .= sprintf($url, $_SERVER['SERVER_NAME'], $page) . "\n";
 }

@@ -1,0 +1,17 @@
+{
+    "name": "anovsiradj/kateglo",
+    "type": "project",
+    "require-dev": {
+        "rector/rector": "@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "anovsiradj",
+            "email": "anov.siradj22@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {}
+}

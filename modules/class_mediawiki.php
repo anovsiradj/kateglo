@@ -45,7 +45,7 @@ class mediawiki
             if ($curl_ret['query']['redirects'])
             {
                 $has_redirects = true;
-                foreach ($curl_ret['query']['redirects'] as $key => $value)
+                foreach ($curl_ret['query']['redirects'] as $value)
                 {
                     $redirects[$value['from']] = $value['to'];
                 }
@@ -55,7 +55,7 @@ class mediawiki
             if ($curl_ret['query']['normalized'])
             {
                 $has_normalized = true;
-                foreach ($curl_ret['query']['normalized'] as $key => $value)
+                foreach ($curl_ret['query']['normalized'] as $value)
                 {
                     $normalized[$value['from']] = $value['to'];
                     if ($has_redirects)
@@ -89,7 +89,7 @@ class mediawiki
                 $lang_ret = $this->curl($url);
                 if ($lang_ret['query']['pages'])
                 {
-                    foreach ($lang_ret['query']['pages'] as $key => $value)
+                    foreach ($lang_ret['query']['pages'] as $value)
                     {
                         if ($value['langlinks'] !== null)
                         {

@@ -85,7 +85,7 @@ class random extends page
             $entry = $val['phrase'];
             $random[$entry]['definition'][] = $val['def_text'];
         }
-        foreach ($random as $key => $val)
+        foreach ($random as $val)
         {
             $this->random[] = $val;
         }

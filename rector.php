@@ -6,9 +6,11 @@ use Rector\Set\ValueObject\SetList;
 return RectorConfig::configure()
     ->withPaths([
         // __DIR__ . '/pear',
-        // __DIR__ . '/config',
-        // __DIR__ . '/classes',
-        // __DIR__ . '/modules',
+
+        __DIR__ . '/config',
+        __DIR__ . '/classes',
+        __DIR__ . '/modules',
+
         __DIR__ . '/api.php',
         __DIR__ . '/index.php',
         __DIR__ . '/common.php',

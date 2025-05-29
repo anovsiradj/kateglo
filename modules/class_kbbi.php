@@ -375,7 +375,7 @@ class kbbi
                         // sample
                         if (strpos($tmp_def, ':'))
                         {
-                            if ($sample = split(':', $tmp_def))
+                            if ($sample = explode(':', $tmp_def))
                             {
                                 $tmp_def = trim($sample[0]);
                                 $tmp_sample = trim(strip_tags($sample[1]));
@@ -782,7 +782,7 @@ class kbbi
     {
         if ($clean['definitions'])
         {
-            foreach ($clean['definitions'] as $def_key => $def)
+            foreach ($clean['definitions'] as $def)
             {
                 $def_items = explode(';', $def['text']);
                 if ($def_items)

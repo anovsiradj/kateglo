@@ -617,7 +617,7 @@ class dictionary extends page
         }
 
         $ret .= '<dl class="dl-horizontal">' . LF;
-        foreach ($phrase['relation'] as $type_key => $type)
+        foreach ($phrase['relation'] as $type)
         {
             unset($sort1);
             unset($sort2);
@@ -1482,7 +1482,7 @@ class dictionary extends page
                 // definitions
                 if ($value['definitions'])
                 {
-                    foreach ($value['definitions'] as $def_key => $def_val)
+                    foreach ($value['definitions'] as $def_val)
                     {
                         $query = sprintf(
                             'INSERT INTO definition (phrase, def_num, lex_class, discipline, def_text, sample, see)
@@ -1622,7 +1622,7 @@ class dictionary extends page
             $ret .= '</blockquote>' . LF;
         }
         // relations
-        foreach ($phrase['relation'] as $key => $rel)
+        foreach ($phrase['relation'] as $rel)
         {
             if (count($rel) > 1)
             {

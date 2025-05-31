@@ -9,6 +9,10 @@ return RectorConfig::configure()
 	->withPaths([
 		// __DIR__ . '/pear',
 		__DIR__ . '/pear/HTML',
+		__DIR__ . '/pear/Log.php',
+		__DIR__ . '/pear/Auth.php',
+		__DIR__ . '/pear/MDB2.php',
+		__DIR__ . '/pear/PEAR.php',
 
 		__DIR__ . '/config',
 		__DIR__ . '/classes',

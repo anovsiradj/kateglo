@@ -1,13 +1,15 @@
 <?php
 
-error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_STRICT);
 
 require __DIR__ . '/vendor/autoload.php';
 
 if (!function_exists('dd')) {
     function dd()
     {
-        foreach (func_get_args() as $a) dump($a);
+        foreach (func_get_args() as $a) {
+            dump($a);
+        }
         die;
     }
 }

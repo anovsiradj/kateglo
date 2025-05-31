@@ -1,4 +1,17 @@
 <?php
+
+error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+
+require __DIR__ . '/vendor/autoload.php';
+
+if (!function_exists('dd')) {
+    function dd()
+    {
+        foreach (func_get_args() as $a) dump($a);
+        die;
+    }
+}
+
 // header('Location: http://kateglo.bahtera.org');
 if ($_SERVER['SERVER_NAME'] == 'kateglo.situswebku.net') {
     header('Location: http://kateglo.com');

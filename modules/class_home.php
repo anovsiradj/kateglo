@@ -10,7 +10,7 @@ class home extends page
      */
     function home(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
     }
 
     /**

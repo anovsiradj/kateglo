@@ -15,7 +15,6 @@ require_once($base_dir . '/vendor/phpfastcache/phpfastcache.php');
  */
 class cache
 {
-
     /** @var phpFastCache Cache object */
     var $cache;
 
@@ -36,7 +35,7 @@ class cache
         if ($this->id == '') {
             $this->id = 'mod=home';
         }
-        $this->id = $this->prefix . $this->id;
+        $this->id = $prefix . $this->id;
     }
 
     /**

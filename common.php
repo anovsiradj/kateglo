@@ -3,9 +3,9 @@
  * Library of common functions
  */
 
-define(PROCESS_NONE, 0); // mark no process
-define(PROCESS_SUCCEED, 1); // mark process succeed
-define(PROCESS_FAILED, 2); // mark process failed
+define('PROCESS_NONE', 0); // mark no process
+define('PROCESS_SUCCEED', 1); // mark process succeed
+define('PROCESS_FAILED', 2); // mark process failed
 
 /**
  * Redirect to a certain URL page
@@ -20,6 +20,9 @@ function redir($url)
 function login($username = null, $status = null, &$auth = null)
 {
     global $msg, $auth, $is_post;
+
+    $ret = '';
+
     $welcome = $auth->checkAuth() ? 'login_success' : 'login_welcome';
     $welcome = $msg[$welcome];
     if ($is_post && !$auth->checkAuth()) $welcome = $msg['login_failed'] . ' ' . $welcome;

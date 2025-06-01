@@ -54,6 +54,10 @@ class proverb extends page
     function show_list()
     {
         global $_GET;
+
+        $ret = '';
+        $where = '';
+
         if ($_GET['phrase'])
             $where .= sprintf('AND proverb LIKE \'%%%1$s%%\' ',
                 $this->db->quote($_GET['phrase'], null, false));
@@ -86,6 +90,8 @@ class proverb extends page
      */
     function show_form()
     {
+        $ret = '';
+
         $form = new form('entry_form', null, './?mod=comment');
         $form->setup($this->msg);
 

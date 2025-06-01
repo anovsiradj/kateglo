@@ -2,10 +2,9 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$hell_mode = '';
+$hell_mode = 'loose';
 if ($hell_mode === 'loose') {
-	/** @todo Heaven */
-	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_STRICT);
+	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 } elseif ($hell_mode === 'strict') {
 	/**
 	 * Hell of a PHP Errors
@@ -13,8 +12,8 @@ if ($hell_mode === 'loose') {
 	 */
 	ini_set('error_reporting', E_ALL);
 	ini_set('display_errors', true);
-	set_error_handler(function($errno, $errstr, $errfile, $errline) {
-	 throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+	set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+		throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 	});
 }
 
@@ -31,6 +30,7 @@ $http_params_defaults = [
 	'type',
 	'action',
 	'phrase',
+	'abbr_key',
 ];
 foreach ($http_params_defaults as $k => $v) {
 	if (is_int($k)) {

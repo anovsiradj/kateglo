@@ -225,6 +225,7 @@ class dictionary extends page
             $url_detail = './?mod=dictionary&action=view&phrase=';
 
             // get definitions
+            $found = '';
             foreach ($rows as $row)
             {
                 $found .= $found ? ', ' : '';
@@ -520,6 +521,7 @@ class dictionary extends page
 
             // translation
             if ($phrase['translations']) {
+                $ret_translation = '';
                 $ret_translation .= '<ul>' . LF;
                 foreach ($phrase['translations'] as $translation)
                 {
@@ -655,6 +657,9 @@ class dictionary extends page
     function show_form()
     {
         global $_GET;
+
+        $ret = '';
+
         $phrase = $this->get_phrase();
         $is_new = $phrase ? 0 : 1;
         $url = './?mod=dictionary&action=form&phrase=' . ($phrase ? $_GET['phrase'] : '') . '';
@@ -790,6 +795,8 @@ class dictionary extends page
      */
     function show_sub_form($form, $phrase, $field_def, $name, $heading, $phrase_field, $count_name)
     {
+        $ret = '';
+
         // definition
         $hidden_field = '';
         $defs = &$phrase[$phrase_field];
@@ -798,6 +805,7 @@ class dictionary extends page
         $defs[] = $new_def;
         $def_count = count($defs);
 
+        $elms = '';
         foreach ($field_def as $field_key => $field)
             $elms .= ($elms ? ', ' : '') . $field_key;
 
@@ -933,6 +941,9 @@ class dictionary extends page
      */
     function get_keywords()
     {
+        $ret = '';
+        $keywords = [];
+
         if ($this->phrase)
         {
             $keywords[] = $this->phrase['phrase'];
@@ -1322,6 +1333,8 @@ class dictionary extends page
      */
     function merge_phrase_list($phrases, $col_name, $count = null, $show_lex = false)
     {
+        $ret = '';
+
         $lex_classes = $this->db->get_row_assoc(
             'SELECT * FROM lexical_class', 'lex_class', 'lex_class_name');
         if (is_null($count)) $count = count($phrases);
@@ -1359,6 +1372,8 @@ class dictionary extends page
      */
     function get_abbrev($source)
     {
+        $ret = '';
+
         $abbrevs = $this->abbrevs;
         $sources = explode(', ', $source);
         if (is_array($sources)) {
@@ -1581,6 +1596,8 @@ class dictionary extends page
      */
     function show_phrase_brief()
     {
+        $ret = '';
+
         $phrase = $this->get_phrase();
         $def_count = count($phrase['definition']);
         $redirect = $phrase['actual_phrase'];
@@ -1746,6 +1763,8 @@ class dictionary extends page
      */
     function get_prev_next($id)
     {
+        $ret = '';
+
         $limit = 5;
         $table = 'phrase';
         $field = 'phrase';

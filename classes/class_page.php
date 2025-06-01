@@ -16,6 +16,7 @@ class page
     function page(&$db, &$auth, $msg)
     {
         global $_SERVER;
+
         $this->db = $db;
         $this->auth = $auth;
         $this->msg = $msg;
@@ -65,6 +66,8 @@ class page
      */
     function get_action_buttons($all_actions, $available_actions = null)
     {
+        $ret = '';
+
         // which actions are available?
         if (is_array($available_actions))
             foreach ($available_actions as $key)

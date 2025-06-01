@@ -18,6 +18,8 @@ class home extends page
      */
     function show()
     {
+        $ret = '';
+
         // statistics
         $searches = $this->db->get_rows('SELECT phrase FROM searched_phrase
             ORDER BY search_count DESC LIMIT 0, 5;');

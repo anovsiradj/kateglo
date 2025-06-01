@@ -69,8 +69,12 @@ class db
         $this->pager['rperpage'] = $_GET['rpp'];
 
         $rows = $this->_db->queryAll('SELECT COUNT(*) ' . $from);
-        // dd($rows);
-        $this->pager['rcount'] = $rows[0][0];
+
+        $tmp = 0;
+        if (isset($rows[0][0])) {
+            $tmp = $rows[0][0];
+        }
+        $this->pager['rcount'] = $tmp;
 
         // record per page
         $is_reset = !is_numeric($this->pager['rperpage']);
@@ -181,6 +185,9 @@ class db
     function get_page_nav($dictionary = false)
     {
         global $_GET;
+
+        $ret = '';
+        $url = '';
 
         // url
         $url .= './?';

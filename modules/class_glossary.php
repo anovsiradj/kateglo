@@ -43,6 +43,9 @@ class glossary extends page
     function show()
     {
         global $_GET;
+
+        $ret = '';
+
         switch ($_GET['action'])
         {
             case 'form':
@@ -144,6 +147,7 @@ class glossary extends page
     {
         global $_GET;
 
+        $ret = '';
         $where = '';
 
         $phrase = trim($_GET['phrase']);
@@ -324,6 +328,11 @@ class glossary extends page
             '5' => $this->msg['search_5'],
         );
 
+        $ret = '';
+
+        /** @todo gak tau ini harus berupa apa */
+        $msg = null;
+
         $form = new form('search_glo', 'get', './', array('class' => 'form-inline'));
         $form->setup($msg);
         $form->addElement('hidden', 'mod', 'glossary');
@@ -371,6 +380,8 @@ class glossary extends page
      */
     function show_form()
     {
+        $ret = '';
+
         $query = 'SELECT a.* FROM glossary a
             WHERE a.glo_uid = ' . $this->db->quote($_GET['uid']);
         $this->entry = $this->db->get_row($query);
@@ -449,7 +460,9 @@ class glossary extends page
     function get_url_param($exclude = null)
     {
         global $_GET;
+
         $ret = '';
+
         foreach ($_GET as $key => $val)
         {
             $is_excluded = false;
@@ -485,6 +498,8 @@ class glossary extends page
         sort($clean_key);
         // cleaned key
         $url = '<a href="./?mod=dictionary&action=view&phrase=%1$s">%1$s</a>';
+
+        $keyword = '';
         foreach($clean_key as $word)
         {
             {

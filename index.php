@@ -33,6 +33,8 @@ require_once($base_dir . '/classes/class_cache.php');
 $vars = array('title', 'keywords', 'description', 'padding_top', 'body');
 
 $mod = null;
+$body = '';
+
 $cache = new cache();
 if ($cached = $cache->get()) {
     foreach ($vars as $var) {

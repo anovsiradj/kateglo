@@ -49,6 +49,9 @@ class abbr extends page
     function show()
     {
         global $_GET;
+
+        $ret = '';
+
         switch ($_GET['action'])
         {
             case 'form':
@@ -67,6 +70,8 @@ class abbr extends page
     function show_main()
     {
         global $_GET;
+
+        $ret = '';
 
         // title
         $this->title = $this->msg['abbr_acr'];
@@ -105,6 +110,9 @@ class abbr extends page
     function show_result()
     {
         global $_GET;
+
+        $ret = '';
+        $where = '';
 
         $operators = array(
             '1' => array('type'=>'LIKE', 'open'=>'%', 'close'=>'%'),
@@ -261,6 +269,10 @@ class abbr extends page
             '5' => $this->msg['search_5'],
         );
 
+        $ret = '';
+        /** @todo gak tau ini harus berupa apa */
+        $msg = null;
+
         $form = new form('search_glo', 'get');
         $form->setup($msg);
         $form->addElement('hidden', 'mod', 'abbr');
@@ -299,6 +311,8 @@ class abbr extends page
      */
     function show_form()
     {
+        $ret = '';
+
         $query = 'SELECT a.* FROM abbr_entry a
             WHERE a.abbr_idx = ' . $this->db->quote($_GET['uid']);
         $this->entry = $this->db->get_row($query);
@@ -380,7 +394,9 @@ class abbr extends page
     function get_url_param($exclude = null)
     {
         global $_GET;
+
         $ret = '';
+
         foreach ($_GET as $key => $val)
         {
             $is_excluded = false;
@@ -416,6 +432,8 @@ class abbr extends page
         sort($clean_key);
         // cleaned key
         $url = '<a href="./?mod=dictionary&action=view&phrase=%1$s">%1$s</a>';
+
+        $keyword = '';
         foreach($clean_key as $word)
         {
             {

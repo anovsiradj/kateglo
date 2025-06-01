@@ -16,7 +16,7 @@ class dictionary extends page
      */
     function dictionary(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
         $this->abbrevs = $this->db->get_row_assoc(
             'SELECT * FROM sys_abbrev', 'abbrev', 'label');
         $this->abbrevs['var'] = 'Variasi ejaan';
@@ -48,7 +48,7 @@ class dictionary extends page
             case 'kbbi':
                 if ($_GET['phrase'])
                 {
-                    $this->kbbi = new kbbi($this->msg, &$this->db);
+                    $this->kbbi = new kbbi($this->msg, $this->db);
                     $this->kbbi->parse($_GET['phrase']);
                     if ($this->kbbi->found) $this->save_kbbi($_GET['phrase']);
                     redir('./?mod=dictionary&action=view&phrase=' . $_GET['phrase']);
@@ -69,6 +69,9 @@ class dictionary extends page
     function show()
     {
         global $_GET;
+
+        $ret = '';
+
         switch ($_GET['action'])
         {
             case 'view':
@@ -103,6 +106,8 @@ class dictionary extends page
      */
     function show_list()
     {
+        $ret = '';
+        $where = '';
 
         // index or phrase
         if (!$_GET['phrase'] && !$_GET['lex'] && !$_GET['type'] && !$_GET['idx'] && !$_GET['srch'])
@@ -297,11 +302,13 @@ class dictionary extends page
     {
         global $_GET;
 
+        $ret = '';
+
         $lex_classes = $this->db->get_row_assoc(
             'SELECT * FROM lexical_class', 'lex_class', 'lex_class_name');
         $this->phrase = $this->get_phrase();
         $phrase = $this->phrase;
-        $this->kbbi = new kbbi($this->msg, &$this->db);
+        $this->kbbi = new kbbi($this->msg, $this->db);
 
         // if it's not marked created
         if (!$phrase['created'])
@@ -326,6 +333,7 @@ class dictionary extends page
         }
 
         // header
+        $pronounce = null;
         if ($phrase['pronounciation'])
             $pronounce = sprintf(' <small>/%s/</small>', $phrase['pronounciation']);
         $ret .= sprintf('<h1>%1$s%2$s</h1>' . LF, $_GET['phrase'], $pronounce);
@@ -574,7 +582,7 @@ class dictionary extends page
         {
             $ret .= sprintf('<p style="margin-bottom:20px;">%1$s</p>', sprintf($this->msg['phrase_na'], $_GET['phrase']));
             // derivation and relation
-            $this->get_relation(&$phrase, 'related_phrase', true);
+            $this->get_relation($phrase, 'related_phrase', true);
             $ret .= $this->show_panel('panelRelated', 'Kata Terkait',
                 $this->show_relation($phrase, 'root_phrase'));
         }
@@ -582,7 +590,7 @@ class dictionary extends page
 
         // glosarium
         $_GET['lang'] = 'id';
-        $glossary = new glossary(&$this->db, &$this->auth, $this->msg);
+        $glossary = new glossary($this->db, $this->auth, $this->msg);
         $glos_in = isset($_GET['p']) ? ' in' : '';
         $glossary->sublist = true;
         if ($ret_glossary = $glossary->show_result()) {
@@ -607,6 +615,8 @@ class dictionary extends page
      */
     function show_relation($phrase, $col_name)
     {
+        $ret = '';
+
         // derivation
         $type_count = count($phrase['relation']);
         $col_width = round(100 / $type_count) . '%';
@@ -720,7 +730,7 @@ class dictionary extends page
         $ret .= '</table>' . LF;
 
         // definition
-        $ret .= $this->show_sub_form(&$form, &$phrase,
+        $ret .= $this->show_sub_form($form, $phrase,
             array(
                 'def_uid' => array('type' => 'hidden'),
                 'def_num' => array('type' => 'text', 'width' => '1%',
@@ -739,7 +749,7 @@ class dictionary extends page
             'definition', 'definition', 'definition', 'def_count');
 
         // reference
-        $ret .= $this->show_sub_form(&$form, &$phrase,
+        $ret .= $this->show_sub_form($form, $phrase,
             array(
                 'ext_uid' => array('type' => 'hidden'),
                 'url' => array('type' => 'text', 'width' => '50%',
@@ -750,7 +760,7 @@ class dictionary extends page
             'external_ref', 'external_ref', 'reference', 'ext_count');
 
         // relation
-        $ret .= $this->show_sub_form(&$form, &$phrase,
+        $ret .= $this->show_sub_form($form, $phrase,
             array(
                 'rel_uid' => array('type' => 'hidden'),
                 'rel_type' => array('type' => 'select', 'width' => '1%',
@@ -766,7 +776,7 @@ class dictionary extends page
 
         // kbbi
         $ret .= sprintf('<h3>%1$s</h3>' . LF, $this->msg['kbbi_ref']);
-        $this->kbbi = new kbbi($this->msg, &$this->db);
+        $this->kbbi = new kbbi($this->msg, $this->db);
         $ret .= $this->kbbi->query($_GET['phrase'], 1) . '</b></i>' . LF;
 
         //var_dump($form->toArray());
@@ -778,7 +788,7 @@ class dictionary extends page
     /**
      * @return unknown_type
      */
-    function show_sub_form(&$form, &$phrase, $field_def, $name, $heading, $phrase_field, $count_name)
+    function show_sub_form($form, $phrase, $field_def, $name, $heading, $phrase_field, $count_name)
     {
         // definition
         $hidden_field = '';
@@ -872,6 +882,10 @@ class dictionary extends page
             '4' => $this->msg['search_4'],
             '5' => $this->msg['search_5'],
         );
+
+        /** @todo gak tau ini harus berupa apa */
+        $msg = null;
+        $ret = '';
 
         $form = new form('search_dict', 'get');
         $form->setup($msg);
@@ -1040,7 +1054,7 @@ class dictionary extends page
 //              $phrase['translations'][] = $translation;
 
             // derivation and relation
-                $this->get_relation(&$phrase, 'related_phrase');
+                $this->get_relation($phrase, 'related_phrase');
             }
         }
         return($phrase);
@@ -1721,7 +1735,7 @@ class dictionary extends page
             $ret .= '</blockquote>' . LF;
         }
 
-        $this->kbbi = new kbbi($this->msg, &$this->db);
+        $this->kbbi = new kbbi($this->msg, $this->db);
         $ret .= $this->kbbi->query($phrase['phrase'], 1) . '</b></i>' . LF;
 
         return($ret);
@@ -1764,6 +1778,7 @@ class dictionary extends page
 
     function show_panel($id, $caption, $content, $state = '')
     {
+        $ret = '';
         $ret .= '<div class="panel panel-default">' . LF;
         $ret .= '<div class="panel-heading">' . LF;
         $ret .= '<h4 class="panel-title">' . LF;

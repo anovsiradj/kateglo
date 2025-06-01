@@ -16,7 +16,7 @@ class abbr extends page
      */
     function abbr(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
     }
 
     /**
@@ -26,6 +26,7 @@ class abbr extends page
     {
         global $_GET;
         global $_SERVER;
+
         if ($_GET['phrase'])
             $_GET['abbr_key'] = $_GET['phrase'];
         else

@@ -62,10 +62,14 @@ class db
     function get_rows_paged($cols, $from)
     {
         global $_GET;
+
+        $ret = '';
+
         $this->pager['pcurrent'] = $_GET['p'];
         $this->pager['rperpage'] = $_GET['rpp'];
 
         $rows = $this->_db->queryAll('SELECT COUNT(*) ' . $from);
+        // dd($rows);
         $this->pager['rcount'] = $rows[0][0];
 
         // record per page
@@ -111,7 +115,12 @@ class db
     function get_row($query)
     {
         $rows = $this->get_rows($query);
-        return($rows[0]);
+        if ($rows instanceof MDB2_Error) {
+            dd($rows);
+        }
+        if (is_array($rows) && isset($rows[0])) {
+            return($rows[0]);
+        }
     }
 
     /**
@@ -143,7 +152,12 @@ class db
     function get_row_value($query, $col_index = 0)
     {
         $rows = $this->get_rows($query, false);
-        return($rows[0][$col_index]);
+        if ($rows instanceof MDB2_Error) {
+            dd($rows);
+        }
+        if (is_array($rows) && isset($rows[0]) && isset($rows[0][$col_index])) {
+            return ($rows[0][$col_index]);
+        }
     }
 
     /**

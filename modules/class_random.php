@@ -16,7 +16,7 @@ class random extends page
      */
     function random(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
         global $_GET;
         // limit
         $limit = $_GET['limit'];

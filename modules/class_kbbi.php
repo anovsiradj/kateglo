@@ -108,7 +108,7 @@ class kbbi
 //      echo('<br />');
         if (is_array($match))
         {
-            if ($match[2] == 1)
+            if (isset($match[2]) && $match[2] == 1)
             {
                 $this->param['perintah'] = '';
                 $this->param['perintah2'] = 'Berikut';
@@ -116,7 +116,10 @@ class kbbi
                 $this->get_words();
             }
             $this->param['dftkata'] .= $this->param['dftkata'] ? ';' : '';
-            $this->param['dftkata'] .= $match[1];
+
+            if (isset($match[1])) {
+                $this->param['dftkata'] .= $match[1];
+            }
         }
         // if (is_array($match)) return($match[2]);
     }
@@ -370,7 +373,7 @@ class kbbi
 
                         // parse info
                         if ($tmp_pair[$i][$j]['info'] != '')
-                            $this->parse_info_lexical(&$tmp_pair[$i][$j]);
+                            $this->parse_info_lexical($tmp_pair[$i][$j]);
 
                         // sample
                         if (strpos($tmp_def, ':'))
@@ -720,7 +723,7 @@ class kbbi
             else
                 $def['lex_class'] = $last_lexical;
             // synonym
-            $this->parse_synonym(&$def);
+            $this->parse_synonym($def);
             // definitions
             $j = 0;
             if ($def['definitions'])

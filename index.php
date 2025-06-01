@@ -1,23 +1,12 @@
 <?php
 
-error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_STRICT);
+require_once __DIR__ . '/anoop.php';
 
-require __DIR__ . '/vendor/autoload.php';
-
-if (!function_exists('dd')) {
-    function dd()
-    {
-        foreach (func_get_args() as $a) {
-            dump($a);
-        }
-        die;
-    }
-}
-
+/** @todo [PENTING] matikan hardcode redirect */
 // header('Location: http://kateglo.bahtera.org');
-if ($_SERVER['SERVER_NAME'] == 'kateglo.situswebku.net') {
-    header('Location: http://kateglo.com');
-}
+// if ($_SERVER['SERVER_NAME'] == 'kateglo.situswebku.net') {
+//     header('Location: http://kateglo.com');
+// }
 
 /**
  * Entry point of application
@@ -25,6 +14,9 @@ if ($_SERVER['SERVER_NAME'] == 'kateglo.situswebku.net') {
 // base dir
 $base_dir = dirname(__FILE__);
 ini_set('include_path', $base_dir . '/pear/');
+
+/** @todo [PENTING] variabel ini tidak ditemukan dimanapun */
+$allow_stat = false;
 
 // includes
 require_once($base_dir . '/config/settings.php');
@@ -40,6 +32,7 @@ require_once($base_dir . '/classes/class_cache.php');
 
 $vars = array('title', 'keywords', 'description', 'padding_top', 'body');
 
+$mod = null;
 $cache = new cache();
 if ($cached = $cache->get()) {
     foreach ($vars as $var) {
@@ -153,7 +146,7 @@ body { min-height: 1000px; padding-top: <?php echo($padding_top); ?>px; }
 </div>
 
 <?php
-unset($ret);
+$ret = '';
 if ($mod == 'home') $ret .= '<div class="container">' . LF;
 //$ret .= show_header();
 $ret .= '<div class="container">' . LF;

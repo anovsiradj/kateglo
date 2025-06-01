@@ -16,7 +16,7 @@ class glossary extends page
      */
     function glossary(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
     }
 
     /**
@@ -61,6 +61,8 @@ class glossary extends page
     function show_main()
     {
         global $_GET;
+
+        $ret = '';
 
         // title
         $this->title = $this->msg['glossary'];
@@ -141,6 +143,8 @@ class glossary extends page
     function show_result()
     {
         global $_GET;
+
+        $where = '';
 
         $phrase = trim($_GET['phrase']);
         $discipline = trim($_GET['dc']);
@@ -231,8 +235,8 @@ class glossary extends page
             }
             if ($wp_uid)
             {
-                $this->get_wikipedia('en', $lemma_en, $idx_en, &$rows);
-                $this->get_wikipedia('id', $lemma_id, $idx_id, &$rows);
+                $this->get_wikipedia('en', $lemma_en, $idx_en, $rows);
+                $this->get_wikipedia('id', $lemma_id, $idx_id, $rows);
                 $query = 'UPDATE glossary SET wikipedia_updated = NOW() WHERE glo_uid IN (' . $wp_uid . ');';
                 $this->db->exec($query);
             }

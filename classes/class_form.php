@@ -50,9 +50,9 @@ class form extends HTML_QuickForm
     /**
      * Strip tabs from original toHtml
      */
-    function toHtml()
+    function toHtml($in_data = null)
     {
-        return(preg_replace('/^\t+/m', '', parent::toHtml()));
+        return(preg_replace('/^\t+/m', '', parent::toHtml($in_data)));
     }
 }
 ?>

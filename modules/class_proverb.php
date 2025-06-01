@@ -12,7 +12,7 @@ class proverb extends page
      */
     function proverb(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
         $this->db->defaults['rperpage'] = 20;
     }
 
@@ -36,6 +36,9 @@ class proverb extends page
     function show()
     {
         global $_GET;
+
+        $ret = '';
+
         $ret .= sprintf('<h1>%1$s</h1>' . LF, $this->msg['proverb']);
 //      if ($_GET['action'] == 'view')
 //      else

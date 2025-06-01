@@ -12,7 +12,7 @@ class doc extends page
      */
     function doc(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
     }
 
     /**

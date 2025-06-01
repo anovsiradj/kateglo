@@ -14,7 +14,7 @@ class comment extends page
      */
     function comment(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
     }
 
     /**

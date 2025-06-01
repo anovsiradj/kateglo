@@ -12,7 +12,7 @@ class user extends page
      */
     function user(&$db, &$auth, $msg)
     {
-        parent::page(&$db, &$auth, $msg);
+        parent::page($db, $auth, $msg);
         $this->status = PROCESS_NONE;
     }
 

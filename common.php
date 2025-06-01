@@ -209,6 +209,7 @@ function show_footer_old()
 function show_footer()
 {
     global $msg;
+    $ret = '';
     $ret .= '<div class="footer container">' . LF;
     $ret .= sprintf('<p>' .
         '<span style="float:right;">' .

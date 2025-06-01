@@ -38,7 +38,7 @@ if ($cached = $cache->get()) {
     $_GET['format'] = ($_GET['format'] == 'json') ? 'json' : 'xml';
     // process
     require_once($base_dir . '/modules/class_' . $mod . '.php');
-    $page = new $mod(&$db, &$auth, $msg);
+    $page = new $mod($db, $auth, $msg);
     $page->process();
     if ($apiData = $page->getAPI())
     {
@@ -65,7 +65,7 @@ function outputXML(&$apiData)
 {
     $ret .= '<?xml version="1.0"?>' . LF;
     $ret .= '<kateglo status="1">' . LF;
-    $ret .= arrayToXML(&$apiData);
+    $ret .= arrayToXML($apiData);
     $ret .= '</kateglo>' . LF;
     header('Content-type: text/xml');
     return($ret);
@@ -97,7 +97,7 @@ function arrayToXML(&$array)
         else
         {
             $ret .= sprintf('<%1$s>', $keyName) . LF;
-            $ret .= arrayToXML(&$value);
+            $ret .= arrayToXML($value);
             $ret .= sprintf('</%1$s>', $keyName) . LF;
         }
     }

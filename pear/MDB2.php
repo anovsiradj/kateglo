@@ -276,7 +276,7 @@ class MDB2
      *
      * @access  public
      */
-    function setOptions(&$db, $options)
+    static function setOptions(&$db, $options)
     {
         if (is_array($options)) {
             foreach ($options as $option => $value) {
@@ -301,7 +301,7 @@ class MDB2
      * @static
      * @access  public
      */
-    function classExists($classname)
+    static function classExists($classname)
     {
         if (version_compare(phpversion(), "5.0", ">=")) {
             return class_exists($classname, false);
@@ -322,7 +322,7 @@ class MDB2
      *
      * @access  public
      */
-    function loadClass($class_name, $debug)
+    static function loadClass($class_name, $debug)
     {
         if (!MDB2::classExists($class_name)) {
             $file_name = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
@@ -371,7 +371,7 @@ class MDB2
      *
      * @access  public
      */
-    function &factory($dsn, $options = false)
+    static function &factory($dsn, $options = false)
     {
         $dsninfo = MDB2::parseDSN($dsn);
         if (empty($dsninfo['phptype'])) {
@@ -652,7 +652,7 @@ class MDB2
      *
      * @access  public
      */
-    function isResultCommon($value)
+    static function isResultCommon($value)
     {
         return is_a($value, 'MDB2_Result_Common');
     }
@@ -689,7 +689,7 @@ class MDB2
      *
      * @access  public
      */
-    function errorMessage($value = null)
+    static function errorMessage($value = null)
     {
         static $errorMessages;
 
@@ -788,7 +788,7 @@ class MDB2
      * @access  public
      * @author  Tomas V.V.Cox <cox@idecnet.com>
      */
-    function parseDSN($dsn)
+    static function parseDSN($dsn)
     {
         $parsed = $GLOBALS['_MDB2_dsninfo_default'];
 
@@ -918,7 +918,7 @@ class MDB2
      *
      * @access  public
      */
-    function fileExists($file)
+    static function fileExists($file)
     {
         // safe_mode does notwork with is_readable()
         if (!@ini_get('safe_mode')) {
@@ -1403,8 +1403,13 @@ class MDB2_Driver_Common extends PEAR
      *
      * @access  public
      * @see     PEAR_Error
+     * 
+     * @todo [PENTING] method ini tidak kompatibel dengan `PEAR::raiseError()`,
+     * untuk sementara disamakan banyak argumennya dulu,
+     * yaitu dengan menambahkan 2 argument baru dibelakang,
+     * dengan penamaan variabel berdasarkan variabel yang hilang.
      */
-    function &raiseError($code = null, $mode = null, $options = null, $userinfo = null, $method = null)
+    function &raiseError($code = null, $mode = null, $options = null, $userinfo = null, $method = null, $error_class = null, $message = null)
     {
         $userinfo = "[Error message: $userinfo]\n";
         // The error is yet a MDB2 error object

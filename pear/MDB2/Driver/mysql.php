@@ -400,10 +400,13 @@ class MDB2_Driver_mysql extends MDB2_Driver_Common
             $this->disconnect(false);
         }
 
+        /** @todo [PENTING] matikan pengecekan ekstensi, karena di php7 memang tidak ada. */
+        /*
         if (!PEAR::loadExtension($this->phptype)) {
             return $this->raiseError(MDB2_ERROR_NOT_FOUND, null, null,
                 'extension '.$this->phptype.' is not compiled into PHP', __FUNCTION__);
         }
+        */
 
         $params = array();
         if ($this->dsn['protocol'] && $this->dsn['protocol'] == 'unix') {

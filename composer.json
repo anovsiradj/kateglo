@@ -3,8 +3,24 @@
     "type": "project",
     "require": {
         "php": ">=5.6",
-        "symfony/var-dumper": "3.4.x-dev"
+        "symfony/var-dumper": "3.4.x-dev",
+        "sunhater/php7-mysql": "*"
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "sunhater/php7-mysql",
+                "version": "2025.06.01",
+                "type": "library",
+                "source": {
+                    "url": "https://github.com/sunhater/php7-mysql.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
     "license": "MIT",
     "authors": [
         {

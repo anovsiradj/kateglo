@@ -2,10 +2,12 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+if (PHP_MAJOR_VERSION >= 7) {
+	require_once __DIR__ . '/vendor/sunhater/php7-mysql/php7-mysql.php';
+}
+
 $hell_mode = 'loose';
-if ($hell_mode === 'loose') {
-	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
-} elseif ($hell_mode === 'strict') {
+if ($hell_mode === 'strict') {
 	/**
 	 * Hell of a PHP Errors
 	 * @link https://ne-a-r.blogspot.com/2018/11/hell-of-php-errors.html
@@ -15,6 +17,10 @@ if ($hell_mode === 'loose') {
 	set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 		throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 	});
+} elseif ($hell_mode === 'loose') {
+	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
+} else {
+	error_reporting(0);
 }
 
 /** @todo [PENTING] atur awalan tiap index pada _GET untuk menghindari galat */

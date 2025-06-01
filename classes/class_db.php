@@ -119,9 +119,6 @@ class db
     function get_row($query)
     {
         $rows = $this->get_rows($query);
-        if ($rows instanceof MDB2_Error) {
-            dd($rows);
-        }
         if (is_array($rows) && isset($rows[0])) {
             return($rows[0]);
         }
@@ -136,6 +133,7 @@ class db
     function get_row_assoc($query, $key, $value, $has_empty = ' ')
     {
         $rows = $this->get_rows($query);
+
         if ($has_empty) $ret[''] = $has_empty;
         if ($this->num_rows > 0)
         {
@@ -156,9 +154,6 @@ class db
     function get_row_value($query, $col_index = 0)
     {
         $rows = $this->get_rows($query, false);
-        if ($rows instanceof MDB2_Error) {
-            dd($rows);
-        }
         if (is_array($rows) && isset($rows[0]) && isset($rows[0][$col_index])) {
             return ($rows[0][$col_index]);
         }

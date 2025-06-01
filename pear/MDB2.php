@@ -52,6 +52,8 @@
  * @author      Lukas Smith <smith@pooteeweet.org>
  */
 
+use Symfony\Component\VarDumper\VarDumper;
+
 require_once 'PEAR.php';
 
 // {{{ Error constants
@@ -971,6 +973,8 @@ class MDB2_Error extends PEAR_Error
         }
         $this->PEAR_Error('MDB2 Error: '.MDB2::errorMessage($code), $code,
             $mode, $level, $debuginfo);
+
+        throw new Exception(VarDumper::dump($this), 1);
     }
 
     // }}}

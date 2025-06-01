@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $hell_mode = 'loose';
 if ($hell_mode === 'loose') {
-	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+	error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
 } elseif ($hell_mode === 'strict') {
 	/**
 	 * Hell of a PHP Errors
